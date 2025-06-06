@@ -20,7 +20,7 @@ spec:
 
   containers:
   - name: ibgda-repro
-    image: "quay.io/tms/ibgda-repro:0.0.2"
+    image: "quay.io/tms/ibgda-repro:0.0.4"
     imagePullPolicy: Always
     workingDir: /app
     stdin: true

@@ -13,9 +13,7 @@ ENV VENV_PATH="/app/venv"
 ENV PYTHON="${VENV_PATH}/bin/python"
 ENV PATH="${VENV_PATH}/bin:${PATH}"
 
-RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
-    && echo 'tzdata tzdata/Zones/America select New_York' | debconf-set-selections \
-    && apt-get -qq update \
+RUN apt-get -qq update \
     && apt-get -qq install -y ccache software-properties-common git wget curl \
     && for i in 1 2 3; do \
         add-apt-repository -y ppa:deadsnakes/ppa && break || \
@@ -38,11 +36,11 @@ RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
       autoconf automake libtool pkg-config \
       ninja-build cmake \
       # Other dependencies
-      libnuma1 libsubunit0 libpci-dev \
+      # libnuma1 libsubunit0 libpci-dev \
       # MPI / PMIx / libfabric for NVSHMEM
-      libopenmpi-dev openmpi-bin \
-      libpmix-dev libfabric-dev \
-      datacenter-gpu-manager \
+      # libopenmpi-dev openmpi-bin \
+      # libpmix-dev libfabric-dev \
+      # datacenter-gpu-manager \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -56,8 +54,8 @@ RUN "${UV}" pip install --python "${PYTHON}" \
 
 
 # --- Build and Install NVSHMEM from Source ---
-ENV CC=/usr/bin/mpicc
-ENV CXX=/usr/bin/mpicxx
+ENV CC=/opt/hpcx/ompi/bin/mpicc
+ENV CXX=/opt/hpcx/ompi/bin/mpicxx
 ENV MAX_JOBS=32
 RUN cd /tmp \
     && wget https://developer.nvidia.com/downloads/assets/secure/nvshmem/nvshmem_src_${NVSHMEM_VERSION}.txz \
@@ -71,7 +69,7 @@ RUN cd /tmp \
       -DCMAKE_CXX_COMPILER=${CXX}        \
       -DMPI_C_COMPILER=${CC}             \
       -DMPI_CXX_COMPILER=${CXX}          \
-      -DMPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi \
+      -DMPI_HOME=/opt/hpcx/ompi \
       -DNVSHMEM_PREFIX=${NVSHMEM_PREFIX} \
       -DCMAKE_CUDA_ARCHITECTURES="90a"   \
       -DNVSHMEM_MPI_SUPPORT=1            \

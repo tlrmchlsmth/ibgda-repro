@@ -6,8 +6,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_VERSION=3.12
 
 ENV CUDA_HOME=/usr/local/cuda/
-ENV GDRCOPY_VERSION=2.5
-ENV GDRCOPY_HOME=/usr/local
 ENV NVSHMEM_VERSION=3.2.5-1
 ENV NVSHMEM_PREFIX=/opt/nvshmem-${NVSHMEM_VERSION}
 
@@ -56,20 +54,6 @@ RUN "${UV}" venv "${VENV_PATH}"
 RUN "${UV}" pip install --python "${PYTHON}" \
       --no-progress --no-cache-dir "cmake<4.0"
 
-# --- Build and Install GDRCopy from Source ---
-RUN cd /tmp && \
-    git clone https://github.com/NVIDIA/gdrcopy.git && \
-    cd gdrcopy && \
-    git checkout tags/v${GDRCOPY_VERSION} && \
-    make prefix=${GDRCOPY_HOME} lib_install exes_install && \
-    ldconfig && \
-    rm -rf /tmp/gdrcopy
-
-ENV PATH=${GDRCOPY_HOME}/bin:${PATH}
-ENV LD_LIBRARY_PATH=${GDRCOPY_HOME}/lib:${LD_LIBRARY_PATH}
-ENV CPATH=${GDRCOPY_HOME}/include:${CPATH}
-ENV LIBRARY_PATH=${GDRCOPY_HOME}/lib:${LIBRARY_PATH}
-
 
 # --- Build and Install NVSHMEM from Source ---
 ENV CC=/usr/bin/mpicc
@@ -100,7 +84,6 @@ RUN cd /tmp \
       -DNVSHMEM_BUILD_TESTS=1            \
       -DNVSHMEM_BUILD_EXAMPLES=0         \
       -DLIBFABRIC_HOME=/usr              \
-      -DGDRCOPY_HOME=${GDRCOPY_HOME}     \
       .. \
     && ninja -j${MAX_JOBS} \
     && ninja -j${MAX_JOBS} install
@@ -113,4 +96,3 @@ ENV PKG_CONFIG_PATH=${NVSHMEM_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}
 
 WORKDIR /app/
 ENTRYPOINT ["sleep", "infinity"]
-

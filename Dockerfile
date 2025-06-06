@@ -98,13 +98,12 @@ RUN cd /tmp \
       -DNVSHMEM_IBDEVX_SUPPORT=1         \
       -DNVSHMEM_USE_GDRCOPY=1            \
       -DNVSHMEM_BUILD_TESTS=1            \
-      -DNVSHMEM_BUILD_EXAMPLES=1         \
+      -DNVSHMEM_BUILD_EXAMPLES=0         \
       -DLIBFABRIC_HOME=/usr              \
       -DGDRCOPY_HOME=${GDRCOPY_HOME}     \
       .. \
     && ninja -j${MAX_JOBS} \
-    && ninja -j${MAX_JOBS} install \
-    && rm -rf /tmp/nvshmem_src_${NVSHMEM_VERSION}*
+    && ninja -j${MAX_JOBS} install
 
 ENV PATH=${NVSHMEM_PREFIX}/bin:${PATH}
 ENV LD_LIBRARY_PATH=${NVSHMEM_PREFIX}/lib:${LD_LIBRARY_PATH}

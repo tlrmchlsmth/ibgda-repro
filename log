@@ -1,62 +1,5 @@
 ===== [1/5]  Installing prerequisites =====
-
->> apt-get
-update
-0% [Working]            Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [128 kB]
-0% [Waiting for headers] [1 InRelease 14.2 kB/128 kB 11%] [Waiting for headers]                                                                               Get:2 http://archive.ubuntu.com/ubuntu focal InRelease [265 kB]
-0% [2 InRelease 0 B/265 kB 0%] [1 InRelease 14.2 kB/128 kB 11%] [Waiting for he                                                                               Get:3 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64  InRelease [1581 B]
-0% [2 InRelease 14.2 kB/265 kB 5%] [1 InRelease 22.9 kB/128 kB 18%] [3 InReleas0% [2 InRelease 28.7 kB/265 kB 11%] [1 InRelease 37.3 kB/128 kB 29%] [Connectin                                                                               0% [2 InRelease 101 kB/265 kB 38%] [Waiting for headers]                                                        0% [Waiting for headers]0% [Waiting for headers] [Waiting for headers]                                              Get:4 http://archive.ubuntu.com/ubuntu focal-updates InRelease [128 kB]
-0% [4 InRelease 6932 B/128 kB 5%] [Waiting for headers] [Waiting for headers]                                                                             Ign:5 http://linux.mellanox.com/public/repo/mlnx_ofed/24.10-1.1.4.0/ubuntu20.04/amd64 ./ InRelease
-                                                                             0% [4 InRelease 48.9 kB/128 kB 38%] [Waiting for headers]0% [Waiting for headers] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                           Get:6 http://archive.ubuntu.com/ubuntu focal-backports InRelease [128 kB]
-0% [6 InRelease 6932 B/128 kB 5%] [Waiting for headers] [Connecting to linux.me                                                                               0% [Waiting for headers] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                           Get:7 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64  Packages [2653 kB]
-0% [7 Packages 16.0 kB/2653 kB 1%] [Connecting to linux.mellanox.com (168.62.21                                                                               0% [Connecting to linux.mellanox.com (168.62.212.37)]0% [Connecting to linux.mellanox.com (168.62.212.37)]0% [7 Packages store 0 B] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                            Get:8 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [4801 kB]
-0% [7 Packages store 0 B] [8 Packages 6999 B/4801 kB 0%] [Waiting for headers]                                                                              Get:9 http://linux.mellanox.com/public/repo/mlnx_ofed/24.10-1.1.4.0/ubuntu20.04/amd64 ./ Release [1329 B]
-0% [7 Packages store 0 B] [8 Packages 732 kB/4801 kB 15%] [9 Release 1329 B/132                                                                               0% [7 Packages store 0 B] [8 Packages 732 kB/4801 kB 15%]0% [7 Packages store 0 B] [8 Packages 1035 kB/4801 kB 22%] [Connecting to linux0% [Waiting for headers] [8 Packages 1622 kB/4801 kB 34%] [Connecting to linux.                                                                               Get:10 http://archive.ubuntu.com/ubuntu focal/universe amd64 Packages [11.3 MB]
-0% [10 Packages 6998 B/11.3 MB 0%] [8 Packages 2176 kB/4801 kB 45%] [Connecting0% [10 Packages 411 kB/11.3 MB 4%] [Connecting to linux.mellanox.com (168.62.210% [8 Packages store 0 B] [10 Packages 411 kB/11.3 MB 4%] [Connecting to linux.                                                                               Get:11 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [1308 kB]
-0% [8 Packages store 0 B] [10 Packages 805 kB/11.3 MB 7%] [11 Packages 24.4 kB/0% [8 Packages store 0 B] [10 Packages 1083 kB/11.3 MB 10%] [Waiting for header                                                                               Get:12 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 Packages [33.1 kB]
-0% [8 Packages store 0 B] [10 Packages 1083 kB/11.3 MB 10%] [12 Packages 33.1 k0% [8 Packages store 0 B] [10 Packages 1083 kB/11.3 MB 10%] [Waiting for header                                                                               Get:13 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [4431 kB]
-0% [8 Packages store 0 B] [10 Packages 1083 kB/11.3 MB 10%] [13 Packages 20.3 k0% [8 Packages store 0 B] [10 Packages 1742 kB/11.3 MB 15%] [13 Packages 2425 k0% [8 Packages store 0 B] [10 Packages 2432 kB/11.3 MB 21%] [Waiting for header                                                                               Get:14 http://linux.mellanox.com/public/repo/mlnx_ofed/24.10-1.1.4.0/ubuntu20.04/amd64 ./ Release.gpg [516 B]
-0% [8 Packages store 0 B] [10 Packages 10.7 MB/11.3 MB 94%] [14 Release.gpg 516                                                                               0% [8 Packages store 0 B] [10 Packages 10.7 MB/11.3 MB 94%]                                                           0% [8 Packages store 0 B]0% [8 Packages store 0 B] [Waiting for headers]                                               Get:15 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages [1275 kB]
-0% [8 Packages store 0 B] [15 Packages 41.0 kB/1275 kB 3%]                                                          0% [8 Packages store 0 B] [Waiting for headers]                                               Get:16 http://archive.ubuntu.com/ubuntu focal/restricted amd64 Packages [33.4 kB]
-0% [8 Packages store 0 B] [16 Packages 31.3 kB/33.4 kB 94%]                                                           0% [8 Packages store 0 B]                         Get:17 http://archive.ubuntu.com/ubuntu focal/multiverse amd64 Packages [177 kB]
-0% [8 Packages store 0 B] [17 Packages 0 B/177 kB 0%]                                                     0% [8 Packages store 0 B] [Waiting for headers]                                               Get:18 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [4919 kB]
-0% [8 Packages store 0 B] [18 Packages 0 B/4919 kB 0%]                                                      0% [8 Packages store 0 B] [Waiting for headers]                                               Get:19 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [4998 kB]
-0% [8 Packages store 0 B] [19 Packages 13.1 kB/4998 kB 0%]                                                          0% [8 Packages store 0 B] [Waiting for headers]                                               Get:20 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [1599 kB]
-0% [8 Packages store 0 B] [20 Packages 61.3 kB/1599 kB 4%]91% [8 Packages store 0 B] [20 Packages 848 kB/1599 kB 53%]92% [20 Packages 979 kB/1599 kB 61%] [Connecting to linux.mellanox.com (168.62.92% [11 Packages store 0 B] [20 Packages 979 kB/1599 kB 61%] [Connecting to lin93% [11 Packages store 0 B] [Waiting for headers] [Connecting to linux.mellanox                                                                               Get:21 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 Packages [36.8 kB]
-93% [11 Packages store 0 B] [21 Packages 35.0 kB/36.8 kB 95%] [Connecting to li93% [11 Packages store 0 B] [Waiting for headers] [Connecting to linux.mellanox                                                                               Get:22 http://archive.ubuntu.com/ubuntu focal-backports/main amd64 Packages [55.2 kB]
-93% [11 Packages store 0 B] [22 Packages 55.2 kB/55.2 kB 100%] [Connecting to l93% [11 Packages store 0 B] [Waiting for headers] [Connecting to linux.mellanox                                                                               Get:23 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 Packages [28.6 kB]
-93% [11 Packages store 0 B] [23 Packages 8019 B/28.6 kB 28%] [Connecting to lin                                                                               93% [11 Packages store 0 B] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                              94% [Connecting to linux.mellanox.com (168.62.212.37)]94% [12 Packages store 0 B] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                              94% [Connecting to linux.mellanox.com (168.62.212.37)]94% [13 Packages store 0 B] [Connecting to linux.mellanox.com (168.62.212.37)]                                                                              Get:24 http://linux.mellanox.com/public/repo/mlnx_ofed/24.10-1.1.4.0/ubuntu20.04/amd64 ./ Packages [29.6 kB]
-                                                                              94% [13 Packages store 0 B] [24 Packages 14.2 kB/29.6 kB 48%]                                                             95% [24 Packages 14.2 kB/29.6 kB 48%]95% [10 Packages store 0 B] [24 Packages 14.2 kB/29.6 kB 48%]                                                             95% [10 Packages store 0 B]                           95% [Working]95% [15 Packages store 0 B]                           96% [Working]96% [16 Packages store 0 B]                           96% [Working]96% [17 Packages store 0 B]                           97% [Working]97% [18 Packages store 0 B]                           97% [Working]97% [19 Packages store 0 B]                           98% [Working]98% [20 Packages store 0 B]                           98% [Working]98% [21 Packages store 0 B]                           99% [Working]99% [22 Packages store 0 B]                           99% [Working]99% [23 Packages store 0 B]                           100% [Working]100% [24 Packages store 0 B]                            100% [Working]              Fetched 38.4 MB in 2s (21.7 MB/s)
-Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 33%Reading package lists... 33%Reading package lists... 33%Reading package lists... 33%Reading package lists... 46%Reading package lists... 46%Reading package lists... 60%Reading package lists... 60%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 76%Reading package lists... 76%Reading package lists... 89%Reading package lists... 89%Reading package lists... 93%Reading package lists... 93%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
-
->> apt-get
-install
--y
-kmod
-Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 33%Reading package lists... 33%Reading package lists... 33%Reading package lists... 33%Reading package lists... 46%Reading package lists... 46%Reading package lists... 60%Reading package lists... 60%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 64%Reading package lists... 76%Reading package lists... 76%Reading package lists... 89%Reading package lists... 89%Reading package lists... 93%Reading package lists... 93%Reading package lists... 93%Reading package lists... 93%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 36%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
-The following additional packages will be installed:
-  libkmod2
-The following NEW packages will be installed:
-  kmod libkmod2
-0 upgraded, 2 newly installed, 0 to remove and 44 not upgraded.
-Need to get 140 kB of archives.
-After this operation, 407 kB of additional disk space will be used.
-0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libkmod2 amd64 27-1ubuntu2.1 [45.3 kB]
-8% [1 libkmod2 14.2 kB/45.3 kB 31%]                                   36% [Working]             Get:2 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 kmod amd64 27-1ubuntu2.1 [94.8 kB]
-37% [2 kmod 2614 B/94.8 kB 3%]                              100% [Working]              Fetched 140 kB in 1s (262 kB/s)
 debconf: delaying package configuration, since apt-utils is not installed
-Selecting previously unselected package libkmod2:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 22460 files and directories currently installed.)
-Preparing to unpack .../libkmod2_27-1ubuntu2.1_amd64.deb ...
-Unpacking libkmod2:amd64 (27-1ubuntu2.1) ...
-Selecting previously unselected package kmod.
-Preparing to unpack .../kmod_27-1ubuntu2.1_amd64.deb ...
-Unpacking kmod (27-1ubuntu2.1) ...
-Setting up libkmod2:amd64 (27-1ubuntu2.1) ...
-Setting up kmod (27-1ubuntu2.1) ...
-Processing triggers for libc-bin (2.31-0ubuntu9.14) ...
 ===== [2/5]  Updating PATH to pick up UCX CLI tools =====
 PATH=/opt/hpcx/ucx/bin:/opt/hpcx/sharp/bin:/opt/hpcx/clusterkit/bin:/opt/hpcx/hcoll/bin:/opt/hpcx/ucc/bin:/opt/hpcx/ucx/bin:/opt/hpcx/ompi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ===== [3/5]  Kernel / device sanity checks =====
@@ -438,20 +381,12 @@ CA 'mlx5_8'
 #      capabilities:
 #            bandwidth: 21915.68/ppn + 0.00 MB/sec
 #              latency: 1000 nsec
-===== [5/5]  UCX latency micro-benchmark =====
-=====  Results  =====
+===== [5/5]  UCX latency micro-benchmark using ibp =====
 
->> env
-UCX_NET_DEVICES=mlx5_0:1
-UCX_TLS=rc
-ucx_perftest
--t
-tag_lat
--n
-10000
-[1749476721.483105] [ibgda-repro:464  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+>> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc ucx_perftest -t tag_lat -n 10000
+[1749478233.681076] [ibgda-repro:464  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 Waiting for connection...
-Accepted connection from 10.0.4.184:35156
+Accepted connection from 10.0.4.241:39080
 +----------------------------------------------------------------------------------------------------------+
 | API:          protocol layer                                                                             |
 | Test:         tag match latency                                                                          |
@@ -461,41 +396,61 @@ Accepted connection from 10.0.4.184:35156
 | Message size: 8                                                                                          |
 | Window size:  1                                                                                          |
 +----------------------------------------------------------------------------------------------------------+
-[1749476725.046954] [ibgda-repro:464  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
-[1749476725.047079] [ibgda-repro:464  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
-[1749476725.047114] [ibgda-repro:464  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
-[1749476725.047126] [ibgda-repro:464  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x5ce8fa378510: 2 pending operations were not flushed
-[1749476725.050471] [ibgda-repro:464  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
-[1749476725.050589] [ibgda-repro:464  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
-[1749476725.050940] [ibgda-repro:464  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749476725.051144] [ibgda-repro:464  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749476725.053407] [ibgda-repro:464  :0]           mpool.c:54   UCX  WARN  object 0x5ce8fa4c1f00 was not returned to mpool devx dbrec
-[1749476725.053504] [ibgda-repro:464  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
-[1749476725.053875] [ibgda-repro:464  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
 
->> env
-UCX_NET_DEVICES=mlx5_0:1
-UCX_TLS=rc
-ucx_perftest
-ibgda-repro
--t
-tag_lat
--n
-10000
-[1749476723.485516] [ibgda-repro:466  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+>> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc ucx_perftest ibgda-repro -t tag_lat -n 10000
+[1749478235.683567] [ibgda-repro:466  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 +--------------+--------------+------------------------------+---------------------+-----------------------+
 |              |              |        latency (usec)        |   bandwidth (MB/s)  |  message rate (msg/s) |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
 |    Stage     | # iterations | 50.0%ile | average | overall |  average |  overall |  average  |  overall  |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
-[1749476725.046594] [ibgda-repro:466  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
-[1749476725.046732] [ibgda-repro:466  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
-[1749476725.047114] [ibgda-repro:466  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
-[1749476725.047128] [ibgda-repro:466  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x5ea3ea624510: 2 pending operations were not flushed
-[1749476725.050760] [ibgda-repro:466  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
-[1749476725.050860] [ibgda-repro:466  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
-[1749476725.051368] [ibgda-repro:466  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749476725.051576] [ibgda-repro:466  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749476725.053744] [ibgda-repro:466  :0]           mpool.c:54   UCX  WARN  object 0x5ea3ea76df00 was not returned to mpool devx dbrec
-[1749476725.053839] [ibgda-repro:466  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
-[1749476725.054209] [ibgda-repro:466  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+Final:                 10000      1.341     1.339     1.339        5.70       5.70      746796      746796
+===== [5/5]  UCX latency micro-benchmark using mlx5 =====
+=====  Results  =====
+
+>> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc ucx_perftest -t tag_lat -n 10000
+[1749478237.635144] [ibgda-repro:477  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+Waiting for connection...
+Accepted connection from 10.0.4.241:43564
++----------------------------------------------------------------------------------------------------------+
+| API:          protocol layer                                                                             |
+| Test:         tag match latency                                                                          |
+| Data layout:  (automatic)                                                                                |
+| Send memory:  host                                                                                       |
+| Recv memory:  host                                                                                       |
+| Message size: 8                                                                                          |
+| Window size:  1                                                                                          |
++----------------------------------------------------------------------------------------------------------+
+[1749478241.158809] [ibgda-repro:477  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
+[1749478241.158923] [ibgda-repro:477  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
+[1749478241.158959] [ibgda-repro:477  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
+[1749478241.158972] [ibgda-repro:477  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x64bb8a628510: 2 pending operations were not flushed
+[1749478241.162941] [ibgda-repro:477  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
+[1749478241.163035] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
+[1749478241.163500] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749478241.163703] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749478241.166095] [ibgda-repro:477  :0]           mpool.c:54   UCX  WARN  object 0x64bb8a669f00 was not returned to mpool devx dbrec
+[1749478241.166190] [ibgda-repro:477  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
+[1749478241.166553] [ibgda-repro:477  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+
+>> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc ucx_perftest ibgda-repro -t tag_lat -n 10000
+[1749478239.637815] [ibgda-repro:479  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
++--------------+--------------+------------------------------+---------------------+-----------------------+
+|              |              |        latency (usec)        |   bandwidth (MB/s)  |  message rate (msg/s) |
++--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
+|    Stage     | # iterations | 50.0%ile | average | overall |  average |  overall |  average  |  overall  |
++--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
+[1749478241.158682] [ibgda-repro:479  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
+[1749478241.158801] [ibgda-repro:479  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
+[1749478241.158958] [ibgda-repro:479  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
+[1749478241.158970] [ibgda-repro:479  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x57dbf1e56510: 2 pending operations were not flushed
+[1749478241.162874] [ibgda-repro:479  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
+[1749478241.162984] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
+[1749478241.163328] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749478241.163527] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749478241.166139] [ibgda-repro:479  :0]           mpool.c:54   UCX  WARN  object 0x57dbf1f9ff00 was not returned to mpool devx dbrec
+[1749478241.166229] [ibgda-repro:479  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
+[1749478241.166585] [ibgda-repro:479  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+=====  Script finished  =====
+
+>> sleep infinity

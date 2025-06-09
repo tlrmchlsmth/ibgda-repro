@@ -1,8 +1,14 @@
 ===== [1/5]  Installing prerequisites =====
+
+>> apt-get install -y kmod > /dev/null
 debconf: delaying package configuration, since apt-utils is not installed
+
 ===== [2/5]  Updating PATH to pick up UCX CLI tools =====
 PATH=/opt/hpcx/ucx/bin:/opt/hpcx/sharp/bin:/opt/hpcx/clusterkit/bin:/opt/hpcx/hcoll/bin:/opt/hpcx/ucc/bin:/opt/hpcx/ucx/bin:/opt/hpcx/ompi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 ===== [3/5]  Kernel / device sanity checks =====
+
+>> lsmod | grep -E 'mlx5|ib_core' || true
 mlx5_ib               540672  128
 ib_uverbs             200704  355 nvidia_peermem,rdma_ucm,mlx5_ib
 ib_core               532480  8 rdma_cm,ib_ipoib,iw_cm,ib_umad,rdma_ucm,ib_uverbs,mlx5_ib,ib_cm
@@ -13,315 +19,366 @@ psample                16384  1 mlx5_core
 tls                   147456  27 mlx5_core
 mlx_compat             20480  13 rdma_cm,ib_ipoib,mlxdevm,mlxfw,iw_cm,sunrpc,ib_umad,ib_core,rdma_ucm,ib_uverbs,mlx5_ib,ib_cm,mlx5_core
 pci_hyperv_intf        12288  1 mlx5_core
-hca_id:	ibp0
-hca_id:	ibp1
-hca_id:	ibp2
-hca_id:	ibp3
-hca_id:	ibp4
-hca_id:	mlx5_5
-hca_id:	ibp5
-hca_id:	ibp6
-hca_id:	ibp7
-hca_id:	mlx5_0
-hca_id:	mlx5_1
-hca_id:	mlx5_2
-hca_id:	mlx5_3
-hca_id:	mlx5_4
-hca_id:	mlx5_6
-hca_id:	mlx5_7
-hca_id:	mlx5_8
+
+>> ibv_devinfo | grep -E 'hca_id|firmware'
+hca_id: ibp0
+hca_id: ibp1
+hca_id: ibp2
+hca_id: ibp3
+hca_id: ibp4
+hca_id: mlx5_5
+hca_id: ibp5
+hca_id: ibp6
+hca_id: ibp7
+hca_id: mlx5_0
+hca_id: mlx5_1
+hca_id: mlx5_2
+hca_id: mlx5_3
+hca_id: mlx5_4
+hca_id: mlx5_6
+hca_id: mlx5_7
+hca_id: mlx5_8
 
 >> ibstat
 CA 'ibp0'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c257303007fe360
-	System image GUID: 0x5c257303007fe360
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 921
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c257303007fe360
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c257303007fe360
+        System image GUID: 0x5c257303007fe360
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 921
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c257303007fe360
+                Link layer: InfiniBand
 CA 'ibp1'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c25730300807690
-	System image GUID: 0x5c25730300807690
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 1025
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c25730300807690
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c25730300807690
+        System image GUID: 0x5c25730300807690
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 1025
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c25730300807690
+                Link layer: InfiniBand
 CA 'ibp2'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c25730300807680
-	System image GUID: 0x5c25730300807680
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 985
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c25730300807680
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c25730300807680
+        System image GUID: 0x5c25730300807680
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 985
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c25730300807680
+                Link layer: InfiniBand
 CA 'ibp3'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c25730300807608
-	System image GUID: 0x5c25730300807608
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 748
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c25730300807608
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c25730300807608
+        System image GUID: 0x5c25730300807608
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 748
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c25730300807608
+                Link layer: InfiniBand
 CA 'ibp4'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c257303008077a0
-	System image GUID: 0x5c257303008077a0
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 1068
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c257303008077a0
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c257303008077a0
+        System image GUID: 0x5c257303008077a0
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 1068
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c257303008077a0
+                Link layer: InfiniBand
 CA 'ibp5'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c257303008077a8
-	System image GUID: 0x5c257303008077a8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 1085
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c257303008077a8
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c257303008077a8
+        System image GUID: 0x5c257303008077a8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 1085
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c257303008077a8
+                Link layer: InfiniBand
 CA 'ibp6'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c257303007fe748
-	System image GUID: 0x5c257303007fe748
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 878
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c257303007fe748
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c257303007fe748
+        System image GUID: 0x5c257303007fe748
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 878
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c257303007fe748
+                Link layer: InfiniBand
 CA 'ibp7'
-	CA type: MT4129
-	Number of ports: 1
-	Firmware version: 28.43.2026
-	Hardware version: 0
-	Node GUID: 0x5c257303008076c8
-	System image GUID: 0x5c257303008076c8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 400
-		Base lid: 1148
-		LMC: 0
-		SM lid: 1
-		Capability mask: 0xa751e848
-		Port GUID: 0x5c257303008076c8
-		Link layer: InfiniBand
+        CA type: MT4129
+        Number of ports: 1
+        Firmware version: 28.43.2026
+        Hardware version: 0
+        Node GUID: 0x5c257303008076c8
+        System image GUID: 0x5c257303008076c8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 400
+                Base lid: 1148
+                LMC: 0
+                SM lid: 1
+                Capability mask: 0xa751e848
+                Port GUID: 0x5c257303008076c8
+                Link layer: InfiniBand
 CA 'mlx5_0'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_1'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_2'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_3'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_4'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_5'
-	CA type: MT41692
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x9c63c00300f406e8
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT41692
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x9c63c00300f406e8
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_6'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_7'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
 CA 'mlx5_8'
-	CA type: MT4126
-	Number of ports: 1
-	Firmware version: 32.42.1000
-	Hardware version: 1
-	Node GUID: 0x0000000000000000
-	System image GUID: 0x9c63c00300f406e8
-	Port 1:
-		State: Active
-		Physical state: LinkUp
-		Rate: 100
-		Base lid: 0
-		LMC: 0
-		SM lid: 0
-		Capability mask: 0x00010000
-		Port GUID: 0x0000000000000000
-		Link layer: Ethernet
+        CA type: MT4126
+        Number of ports: 1
+        Firmware version: 32.42.1000
+        Hardware version: 1
+        Node GUID: 0x0000000000000000
+        System image GUID: 0x9c63c00300f406e8
+        Port 1:
+                State: Active
+                Physical state: LinkUp
+                Rate: 100
+                Base lid: 0
+                LMC: 0
+                SM lid: 0
+                Capability mask: 0x00010000
+                Port GUID: 0x0000000000000000
+                Link layer: Ethernet
+
 ===== [4/5]  UCX view of the devices =====
+
+>> ucx_info -d | grep -EA4 'ibp0|mlx5_0' || true
+# Memory domain: ibp0
+#     Component: ib
+#             allocate: <= 256K
+#             register: unlimited, dmabuf, cost: 16000 + 0.060 * N nsec
+#           remote key: 8 bytes
+--
+#         Device: ibp0:1
+#           Type: network
+#  System device: ibp0 (2)
+#
+#      capabilities:
+#            bandwidth: 45747.33/ppn + 0.00 MB/sec
+#              latency: 600 + 1.000 * N nsec
+--
+#         Device: ibp0:1
+#           Type: network
+#  System device: ibp0 (2)
+#
+#      capabilities:
+#            bandwidth: 45747.33/ppn + 0.00 MB/sec
+#              latency: 630 nsec
+--
+#         Device: ibp0:1
+#           Type: network
+#  System device: ibp0 (2)
+#
+#      capabilities:
+#            bandwidth: 45747.33/ppn + 0.00 MB/sec
+#              latency: 660 nsec
+--
+#         Device: ibp0:1
+#           Type: network
+#  System device: ibp0 (2)
+#
+#      capabilities:
+#            bandwidth: 45747.33/ppn + 0.00 MB/sec
+#              latency: 600 + 1.000 * N nsec
+--
+#         Device: ibp0:1
+#           Type: network
+#  System device: ibp0 (2)
+#
+#      capabilities:
+#            bandwidth: 45747.33/ppn + 0.00 MB/sec
+#              latency: 630 nsec
+--
 # Memory domain: mlx5_0
 #     Component: ib
 #             register: unlimited, dmabuf, cost: 16000 + 0.060 * N nsec
@@ -381,12 +438,16 @@ CA 'mlx5_8'
 #      capabilities:
 #            bandwidth: 21915.68/ppn + 0.00 MB/sec
 #              latency: 1000 nsec
+
 ===== [5/5]  UCX latency micro-benchmark using ibp =====
 
->> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc ucx_perftest -t tag_lat -n 10000
-[1749478233.681076] [ibgda-repro:464  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+>> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc     ucx_perftest -t tag_lat -n 10000 > /tmp/ibp_output_0
+
+>> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc     ucx_perftest ibgda-repro -t tag_lat -n 10000 > /tmp/ibp_output_1
+===== ibp Results  =====
+[1749483079.979364] [ibgda-repro:461  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 Waiting for connection...
-Accepted connection from 10.0.4.241:39080
+Accepted connection from 10.0.4.194:45638
 +----------------------------------------------------------------------------------------------------------+
 | API:          protocol layer                                                                             |
 | Test:         tag match latency                                                                          |
@@ -396,22 +457,23 @@ Accepted connection from 10.0.4.241:39080
 | Message size: 8                                                                                          |
 | Window size:  1                                                                                          |
 +----------------------------------------------------------------------------------------------------------+
-
->> env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc ucx_perftest ibgda-repro -t tag_lat -n 10000
-[1749478235.683567] [ibgda-repro:466  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+[1749483081.981908] [ibgda-repro:463  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 +--------------+--------------+------------------------------+---------------------+-----------------------+
 |              |              |        latency (usec)        |   bandwidth (MB/s)  |  message rate (msg/s) |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
 |    Stage     | # iterations | 50.0%ile | average | overall |  average |  overall |  average  |  overall  |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
-Final:                 10000      1.341     1.339     1.339        5.70       5.70      746796      746796
+Final:                 10000      1.347     1.344     1.344        5.68       5.68      744047      744047
+
 ===== [5/5]  UCX latency micro-benchmark using mlx5 =====
-=====  Results  =====
 
->> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc ucx_perftest -t tag_lat -n 10000
-[1749478237.635144] [ibgda-repro:477  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+>> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc     ucx_perftest -t tag_lat -n 10000 > /tmp/output_0 &
+
+>> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc     ucx_perftest ibgda-repro -t tag_lat -n 10000 > /tmp/output_1
+=====  mlx_5 Results  =====
+[1749483083.749992] [ibgda-repro:472  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 Waiting for connection...
-Accepted connection from 10.0.4.241:43564
+Accepted connection from 10.0.4.194:45648
 +----------------------------------------------------------------------------------------------------------+
 | API:          protocol layer                                                                             |
 | Test:         tag match latency                                                                          |
@@ -421,36 +483,35 @@ Accepted connection from 10.0.4.241:43564
 | Message size: 8                                                                                          |
 | Window size:  1                                                                                          |
 +----------------------------------------------------------------------------------------------------------+
-[1749478241.158809] [ibgda-repro:477  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
-[1749478241.158923] [ibgda-repro:477  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
-[1749478241.158959] [ibgda-repro:477  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
-[1749478241.158972] [ibgda-repro:477  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x64bb8a628510: 2 pending operations were not flushed
-[1749478241.162941] [ibgda-repro:477  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
-[1749478241.163035] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
-[1749478241.163500] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749478241.163703] [ibgda-repro:477  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749478241.166095] [ibgda-repro:477  :0]           mpool.c:54   UCX  WARN  object 0x64bb8a669f00 was not returned to mpool devx dbrec
-[1749478241.166190] [ibgda-repro:477  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
-[1749478241.166553] [ibgda-repro:477  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
-
->> env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc ucx_perftest ibgda-repro -t tag_lat -n 10000
-[1749478239.637815] [ibgda-repro:479  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
+[1749483087.270632] [ibgda-repro:472  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
+[1749483087.270782] [ibgda-repro:472  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
+[1749483087.285394] [ibgda-repro:472  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
+[1749483087.285410] [ibgda-repro:472  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x63b3534ef510: 2 pending operations were not flushed
+[1749483087.289500] [ibgda-repro:472  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
+[1749483087.289610] [ibgda-repro:472  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
+[1749483087.290187] [ibgda-repro:472  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749483087.290402] [ibgda-repro:472  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749483087.293121] [ibgda-repro:472  :0]           mpool.c:54   UCX  WARN  object 0x63b353638f00 was not returned to mpool devx dbrec
+[1749483087.293223] [ibgda-repro:472  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
+[1749483087.293612] [ibgda-repro:472  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+[1749483085.752758] [ibgda-repro:475  :0]        perftest.c:800  UCX  WARN  CPU affinity is not set (bound to 128 cpus). Performance may be impacted.
 +--------------+--------------+------------------------------+---------------------+-----------------------+
 |              |              |        latency (usec)        |   bandwidth (MB/s)  |  message rate (msg/s) |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
 |    Stage     | # iterations | 50.0%ile | average | overall |  average |  overall |  average  |  overall  |
 +--------------+--------------+----------+---------+---------+----------+----------+-----------+-----------+
-[1749478241.158682] [ibgda-repro:479  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
-[1749478241.158801] [ibgda-repro:479  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
-[1749478241.158958] [ibgda-repro:479  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
-[1749478241.158970] [ibgda-repro:479  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x57dbf1e56510: 2 pending operations were not flushed
-[1749478241.162874] [ibgda-repro:479  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
-[1749478241.162984] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
-[1749478241.163328] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749478241.163527] [ibgda-repro:479  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
-[1749478241.166139] [ibgda-repro:479  :0]           mpool.c:54   UCX  WARN  object 0x57dbf1f9ff00 was not returned to mpool devx dbrec
-[1749478241.166229] [ibgda-repro:479  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
-[1749478241.166585] [ibgda-repro:479  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+[1749483087.270688] [ibgda-repro:475  :0]       ib_device.c:1380 UCX  ERROR   ibv_create_ah(dlid=49152 sl=0 port=1 src_path_bits=0 dgid=fe80::8b0:edff:fe4b:aa85 flow_label=0xffffffff sgid_index=0 traffic_class=0) for UD mlx5 connect on mlx5_0 failed: No such device
+[1749483087.270824] [ibgda-repro:475  :0]         libperf.c:1183 UCX  ERROR ucp_ep_create() failed: Address not valid
+[1749483087.270856] [ibgda-repro:475  :0]         libperf.c:2111 UCX  ERROR ucp_perf_test_setup_endpoints() failed: Address not valid
+[1749483087.270869] [ibgda-repro:475  :0]      ucp_worker.c:2929 UCX  WARN  worker 0x5631e0e53510: 2 pending operations were not flushed
+[1749483087.281950] [ibgda-repro:475  :0]        rc_iface.c:796  UCX  WARN  some eps were not destroyed
+[1749483087.282067] [ibgda-repro:475  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(SRQ) failed: Invalid argument
+[1749483087.282458] [ibgda-repro:475  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749483087.282691] [ibgda-repro:475  :0]         ib_mlx5.h:968  UCX  WARN  mlx5dv_devx_obj_destroy(CQ) failed: Invalid argument
+[1749483087.284833] [ibgda-repro:475  :0]           mpool.c:54   UCX  WARN  object 0x5631e0fc9f00 was not returned to mpool devx dbrec
+[1749483087.284938] [ibgda-repro:475  :0]       ib_device.c:667  UCX  WARN  async_events_hash not empty
+[1749483087.285349] [ibgda-repro:475  :0]    perftest_run.c:345  UCX  ERROR Failed to run test: Address not valid
+
 =====  Script finished  =====
 
 >> sleep infinity

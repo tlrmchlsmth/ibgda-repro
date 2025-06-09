@@ -29,58 +29,64 @@ spec:
     args:
       - |
         run() {
-          local IFS=' '
           printf '\n>> %s\n' "$*"
-          "$@"
+          eval "$*"
         }
 
         echo "===== [1/5]  Installing prerequisites ====="
         apt-get update > /dev/null
-        run apt-get install -y kmod > /dev/null
+        run "apt-get install -y kmod > /dev/null"
 
+        echo ""
         echo "===== [2/5]  Updating PATH to pick up UCX CLI tools ====="
         export PATH="/opt/hpcx/ucx/bin:${PATH}"
         echo "PATH=$PATH"
 
+        echo ""
         echo "===== [3/5]  Kernel / device sanity checks ====="
-        run lsmod | grep -E 'mlx5|ib_core' || true
-        run ibv_devinfo | grep -E 'hca_id|firmware'
-        run ibstat
+        run "lsmod | grep -E 'mlx5|ib_core' || true"
+        run "ibv_devinfo | grep -E 'hca_id|firmware'"
+        run "ibstat"
 
+        echo ""
         echo "===== [4/5]  UCX view of the devices ====="
-        run ucx_info -d | grep -A4 mlx5_0 || true
+        run "ucx_info -d | grep -EA4 'ibp0|mlx5_0' || true"
 
+        echo ""
         echo "===== [5/5]  UCX latency micro-benchmark using ibp ====="
         # server side
-        run env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
-            ucx_perftest -t tag_lat -n 10000 > /tmp/ibp_output_0 &
+        run "env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
+            ucx_perftest -t tag_lat -n 10000 > /tmp/ibp_output_0" &
 
         sleep 2   # give the server a moment to bind its port
 
         # client side (same host – replace $(hostname) if you point it elsewhere)
-        run env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
-            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/ibp_output_1
+        run "env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
+            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/ibp_output_1"
 
+        echo "===== ibp Results  ====="
         cat /tmp/ibp_output_0
         cat /tmp/ibp_output_1
 
+        echo ""
         echo "===== [5/5]  UCX latency micro-benchmark using mlx5 ====="
         # server side
-        run env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
-            ucx_perftest -t tag_lat -n 10000 > /tmp/output_0 &
+        run "env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
+            ucx_perftest -t tag_lat -n 10000 > /tmp/output_0 &"
 
         sleep 2   # give the server a moment to bind its port
 
         # client side (same host – replace $(hostname) if you point it elsewhere)
-        run env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
-            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/output_1
+        run "env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
+            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/output_1"
 
-        echo "=====  Results  ====="
+        echo "=====  mlx_5 Results  ====="
         cat /tmp/output_0
         cat /tmp/output_1
 
+        echo ""
         echo "=====  Script finished  ====="
-        run sleep infinity
+        run "sleep infinity"
     env:
       - name: NVIDIA_GDRCOPY
         value: "enabled"

@@ -20,51 +20,72 @@ spec:
 
   containers:
   - name: ibgda-repro
-    image: "quay.io/tms/ibgda-repro:0.0.4"
+    image: "ghcr.io/coreweave/nccl-tests:12.4.1-devel-ubuntu20.04-nccl2.27.3-1-d82e3c0"
     imagePullPolicy: Always
     workingDir: /app
     stdin: true
     tty: true
-    command: ["/bin/sh","-c"]
+    command: ["/bin/bash","-c"]
     args:
       - |
-        sleep infinity
+        run() {
+          local IFS=' '
+          printf '\n>> %s\n' "$*"
+          "$@"
+        }
+
+        echo "===== [1/5]  Installing prerequisites ====="
+        apt-get update > /dev/null
+        run apt-get install -y kmod > /dev/null
+
+        echo "===== [2/5]  Updating PATH to pick up UCX CLI tools ====="
+        export PATH="/opt/hpcx/ucx/bin:${PATH}"
+        echo "PATH=$PATH"
+
+        echo "===== [3/5]  Kernel / device sanity checks ====="
+        run lsmod | grep -E 'mlx5|ib_core' || true
+        run ibv_devinfo | grep -E 'hca_id|firmware'
+        run ibstat
+
+        echo "===== [4/5]  UCX view of the devices ====="
+        run ucx_info -d | grep -A4 mlx5_0 || true
+
+        echo "===== [5/5]  UCX latency micro-benchmark using ibp ====="
+        # server side
+        run env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
+            ucx_perftest -t tag_lat -n 10000 > /tmp/ibp_output_0 &
+
+        sleep 2   # give the server a moment to bind its port
+
+        # client side (same host – replace $(hostname) if you point it elsewhere)
+        run env UCX_NET_DEVICES=ibp0:1 UCX_TLS=rc \
+            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/ibp_output_1
+
+        cat /tmp/ibp_output_0
+        cat /tmp/ibp_output_1
+
+        echo "===== [5/5]  UCX latency micro-benchmark using mlx5 ====="
+        # server side
+        run env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
+            ucx_perftest -t tag_lat -n 10000 > /tmp/output_0 &
+
+        sleep 2   # give the server a moment to bind its port
+
+        # client side (same host – replace $(hostname) if you point it elsewhere)
+        run env UCX_NET_DEVICES=mlx5_0:1 UCX_TLS=rc \
+            ucx_perftest "$(hostname)" -t tag_lat -n 10000 > /tmp/output_1
+
+        echo "=====  Results  ====="
+        cat /tmp/output_0
+        cat /tmp/output_1
+
+        echo "=====  Script finished  ====="
+        run sleep infinity
     env:
-      - name: CUDA_LAUNCH_BLOCKING
-        value: "1"
-        # Needed for GDRCOPY to be used.
-        # See: https://github.com/NVIDIA/nvidia-container-toolkit/releases/tag/v1.15.0
       - name: NVIDIA_GDRCOPY
         value: "enabled"
       - name: NVIDIA_MOFED
         value: "enabled"
-
-      - name: NCCL_DEBUG
-        value: "INFO"
-      - name: NVSHMEM_DEBUG
-        value: "TRACE"
-      - name: NVSHMEM_DEBUG_SUBSYS
-        value: "TRANSPORT,INIT,MEM,COLL,BOOTSTRAP"
-      - name: NVSHMEM_IB_ENABLE_IBGDA
-        value: "true"
-      - name: NVSHMEM_REMOTE_TRANSPORT
-        value: "ibgda"
-#      - name: NVSHMEM_ENABLE_NIC_PE_MAPPING
-#        value: "true"
-#      - name: NVSHMEM_HCA_LIST
-#        value: "mlx5_5"
-      - name: NVSHMEM_IB_DISABLE_DMABUF
-        value: "true"
-      - name: NVSHMEM_BOOTSTRAP_UID_SOCK_IFNAME
-        value: "eth0"
-      - name: GLOO_SOCKET_IFNAME
-        value: "eth0"
-      - name: NCCL_SOCKET_IFNAME
-        value: "eth0"
-      - name: NCCL_IB_HCA
-        value: "ibp"
-      - name: VLLM_LOGGING_LEVEL
-        value: "DEBUG"
 
     securityContext:
       capabilities:
@@ -73,22 +94,25 @@ spec:
         - "SYS_RAWIO"
     resources:
       limits:
-        memory: 64Gi
-        ephemeral-storage: 64Gi
+        memory: 16Gi
         nvidia.com/gpu: "2"
         rdma/ib: 1
       requests:
         cpu: 8
-        memory: 64Gi
-        ephemeral-storage: 64Gi 
+        memory: 16Gi
         nvidia.com/gpu: "2"
         rdma/ib: 1
     volumeMounts:
-      - name: dshm
-        mountPath: /dev/shm
+      - mountPath: /dev/shm
+        name: dshm
+      - mountPath: /dev/gdrdrv
+        name: gdrdrv
   volumes:
     # Needed for NCCL to function
     - name: dshm
       emptyDir:
         medium: Memory
         sizeLimit: 16Gi
+    - name: gdrdrv
+      hostPath:
+        path: /dev/gdrdrv
